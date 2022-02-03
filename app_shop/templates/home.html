@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- Featured Starts Here -->
+<div class="featured-items">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="section-heading">
+          <div class="line-dec"></div>
+          <h1>Featured Items</h1>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="owl-carousel owl-theme">
+          {% for product in product_list %}
+          <a href="single-product.html">
+            <div class="featured-item">
+              <img src="{{ product.imagegallery_set.first.image.url }}" alt="Item 9">
+              <h4>{{ product.name }}</h4>
+              <h6>${{ product.price }}</h6>
+            </div>
+          </a>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Featred Ends Here -->
+{% endblock content %}

@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block content %}
+<!-- Items Starts Here -->
+<div class="featured-page">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 col-sm-12">
+          <div class="section-heading">
+            <div class="line-dec"></div>
+            <h1>Featured Items</h1>
+          </div>
+        </div>
+        <div class="col-md-8 col-sm-12">
+          <div id="filters" class="button-group">
+            <button class="btn btn-primary" data-filter="*">All Products</button>
+            {% for tag in tag_list %}
+            <button class="btn btn-primary" data-filter=".tag-{{ tag.id }}">{{ tag.name }}</button>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="featured container no-gutter">
+
+      <div class="row posts">
+        {% for product in page_obj %}
+          <div id="1" class="item col-md-4 {% for tag in product.tag.all %} tag-{{ tag.id }} {% endfor %}">
+            <a href="single-product.html">
+              <div class="featured-item">
+                <img src="{{ product.imagegallery_set.first.image.url }}" alt="">
+                <h4>{{ product.name }}</h4>
+                <h6>${{ product.price }}</h6>
+              </div>
+            </a>
+          </div>
+        {% endfor %}
+      </div>
+  </div>
+
+  <div class="page-navigation">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <ul>
+            {% if page_obj.has_previous %}
+              <li><a href="?page=1">1</a></li>
+              <li><a href="?page={{ page_obj.previous_page_number }}">&raquo;</a></li>
+            {% endif %}
+            {% if page_obj.has_next %}
+            <li><a href="?page={{ page_obj.next_page_number }}">&laquo;</a></li>
+            <li><a href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a></li>
+            {% endif %}
+
+              <div>
+                <br />
+                {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+              </div>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Featred Page Ends Here -->
+    
+{% endblock content %}
